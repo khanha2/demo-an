@@ -27,7 +27,7 @@ public class FilesService {
 
     public File createImageFile(Context context) throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
@@ -43,5 +43,14 @@ public class FilesService {
         File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File[] files = storageDir.listFiles();
         return files;
+    }
+
+    public void deleteAllFiles(Context context) {
+        File dir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        String[] children = dir.list();
+        for (int i = 0; i < children.length; i++) {
+            new File(dir, children[i]).delete();
+        }
+
     }
 }

@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
                 openGallery();
             }
         });
+
+        ((Button) findViewById(R.id.clear_gallery_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearGallery();
+            }
+        });
     }
 
     private void dispatchTakePictureIntent() {
@@ -57,8 +64,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        
+    }
+
     private void openGallery() {
         Intent intent = new Intent(this, GalleryActivity.class);
         startActivity(intent);
+    }
+
+    private void clearGallery() {
+        FilesService.getInstance().deleteAllFiles(this);
     }
 }

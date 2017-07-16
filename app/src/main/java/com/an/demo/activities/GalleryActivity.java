@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.an.demo.R;
 import com.an.demo.adapters.FileAdapter;
+import com.an.demo.models.ResponseModel;
 import com.an.demo.services.APIService;
 import com.an.demo.services.FilesService;
 
@@ -27,6 +28,8 @@ public class GalleryActivity extends AppCompatActivity {
     private String currentFilePathSelected;
 
     private FloatingActionButton floatingActionButton;
+
+    private final APIService apiService = APIService.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,17 +76,13 @@ public class GalleryActivity extends AppCompatActivity {
                 Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
         try {
-            APIService apiService = APIService.getInstance();
             apiService.sendRequest(filePath);
             if (apiService.getResult() == null) {
                 Snackbar.make(floatingActionButton,
-                        "Error has occured when processing. Try to process demo image.",
+                        "Error has occured when processing.",
                         Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                apiService.sendDemoRequest();
-            }
-            if (apiService.getResult() != null) {
-                showResult();
+                //apiService.sendDemoRequest();
             }
         } catch (Exception e) {
             Snackbar.make(floatingActionButton, e.getMessage(), Snackbar.LENGTH_LONG)
@@ -114,6 +113,16 @@ public class GalleryActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
+            ResponseModel responseModel = apiService.getResult();
+            if (responseModel != null) {
+                if (responseModel.getCode() == 0) {
+                    showResult();
+                } else {
+                    Snackbar.make(floatingActionButton, responseModel.getMessage(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
+            }
             imagesListView.setVisibility(View.VISIBLE);
             floatingActionButton.setVisibility(View.VISIBLE);
         }
