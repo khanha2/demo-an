@@ -10,9 +10,9 @@
     <ImageView
         android:id="@+id/result_image"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="match_parent"
         android:background="@android:drawable/screen_background_dark"
-        android:scaleType="center"
+        android:scaleType="fitCenter"
         app:srcCompat="@mipmap/ic_launcher" />
 
 </LinearLayout>
