@@ -1,4 +1,4 @@
-package com.an.demo;
+package com.an.demo.services;
 
 import android.content.Context;
 import android.os.Environment;
@@ -12,17 +12,17 @@ import java.util.Date;
  * Created by knguy on 7/16/2017.
  */
 
-public class FilesManager {
-    private static FilesManager instance;
+public class FilesService {
+    private static FilesService instance;
 
-    public static FilesManager getInstance() {
+    public static FilesService getInstance() {
         if (instance == null) {
-            instance = new FilesManager();
+            instance = new FilesService();
         }
         return instance;
     }
 
-    protected FilesManager() {
+    protected FilesService() {
     }
 
     public File createImageFile(Context context) throws IOException {

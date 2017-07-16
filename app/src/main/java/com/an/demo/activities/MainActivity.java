@@ -1,4 +1,4 @@
-package com.an.demo;
+package com.an.demo.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,13 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.an.demo.R;
+import com.an.demo.services.FilesService;
+
 import java.io.File;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_TAKE_PHOTO = 1;
-
-    private String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             // Create the File where the photo should go
             File photoFile = null;
             try {
-                photoFile = FilesManager.getInstance().createImageFile(this);
+                photoFile = FilesService.getInstance().createImageFile(this);
             } catch (IOException ex) {
                 // Error occurred while creating the File
             }
